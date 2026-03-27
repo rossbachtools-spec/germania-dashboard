@@ -52,7 +52,7 @@ body{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;background:#F5F7FA;
 .dot-b{background:#1565C0}.dot-y{background:#F9A825}.dot-g{background:#2E7D32}
 
 /* ROTATION TABLE */
-.rot-tbl{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:6px}
+.rot-tbl{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:6px;table-layout:fixed}
 .rot-tbl th{background:var(--navy);color:var(--white);padding:8px 10px;font-weight:600;text-align:center}
 .rot-tbl td{padding:7px 10px;text-align:center;border-bottom:1px solid #ECEFF1;font-size:12.5px}
 .rot-tbl .rnum{font-weight:700;color:var(--blue)}
@@ -197,15 +197,15 @@ body{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;background:#F5F7FA;
   <table class="rot-tbl">
     <thead><tr><th></th><th>Zeit</th><th>Station 1</th><th>Station 2</th><th>Station 3</th></tr></thead>
     <tbody>
-      <tr><td class="rnum">R1</td><td>16:45–16:58</td><td class="team-col">Blau vs Rot</td><td class="team-col">Orange vs Gelb</td><td style="color:var(--green);font-weight:700">Grün</td></tr>
+      <tr><td class="rnum">R1</td><td>16:45–16:58</td><td class="team-col"><span style="color:#1565C0">Blau</span> vs <span style="color:#C62828">Rot</span></td><td class="team-col"><span style="color:#FF8F00">Orange</span> vs <span style="color:#F9A825">Gelb</span></td><td style="color:#2E7D32;font-weight:700">Grün</td></tr>
       <tr class="pause"><td></td><td>2'</td><td colspan="3">■ Trinkpause</td></tr>
-      <tr><td class="rnum">R2</td><td>17:00–17:13</td><td class="team-col">Blau vs Orange</td><td class="team-col">Grün vs Gelb</td><td style="color:var(--red);font-weight:700">Rot</td></tr>
+      <tr><td class="rnum">R2</td><td>17:00–17:13</td><td class="team-col"><span style="color:#1565C0">Blau</span> vs <span style="color:#FF8F00">Orange</span></td><td class="team-col"><span style="color:#2E7D32">Grün</span> vs <span style="color:#F9A825">Gelb</span></td><td style="color:#C62828;font-weight:700">Rot</td></tr>
       <tr class="pause"><td></td><td>2'</td><td colspan="3">■ Trinkpause</td></tr>
-      <tr><td class="rnum">R3</td><td>17:15–17:28</td><td class="team-col">Rot vs Gelb</td><td class="team-col">Grün vs Orange</td><td style="color:var(--blue);font-weight:700">Blau</td></tr>
+      <tr><td class="rnum">R3</td><td>17:15–17:28</td><td class="team-col"><span style="color:#C62828">Rot</span> vs <span style="color:#F9A825">Gelb</span></td><td class="team-col"><span style="color:#2E7D32">Grün</span> vs <span style="color:#FF8F00">Orange</span></td><td style="color:#1565C0;font-weight:700">Blau</td></tr>
       <tr class="pause"><td></td><td>2'</td><td colspan="3">■ Trinkpause</td></tr>
-      <tr><td class="rnum">R4</td><td>17:30–17:43</td><td class="team-col">Blau vs Gelb</td><td class="team-col">Rot vs Grün</td><td style="color:var(--accent);font-weight:700">Orange</td></tr>
+      <tr><td class="rnum">R4</td><td>17:30–17:43</td><td class="team-col"><span style="color:#1565C0">Blau</span> vs <span style="color:#F9A825">Gelb</span></td><td class="team-col"><span style="color:#C62828">Rot</span> vs <span style="color:#2E7D32">Grün</span></td><td style="color:#FF8F00;font-weight:700">Orange</td></tr>
       <tr class="pause"><td></td><td>2'</td><td colspan="3">■ Trinkpause</td></tr>
-      <tr><td class="rnum">R5</td><td>17:45–17:58</td><td class="team-col">Rot vs Orange</td><td class="team-col">Blau vs Grün</td><td style="color:#F9A825;font-weight:700">Gelb</td></tr>
+      <tr><td class="rnum">R5</td><td>17:45–17:58</td><td class="team-col"><span style="color:#C62828">Rot</span> vs <span style="color:#FF8F00">Orange</span></td><td class="team-col"><span style="color:#1565C0">Blau</span> vs <span style="color:#2E7D32">Grün</span></td><td style="color:#F9A825;font-weight:700">Gelb</td></tr>
     </tbody>
   </table>
   <p class="hint">Round-Robin: Jedes Team spielt gegen jedes andere (10 Paarungen in 5 Runden). Jedes Team genau 1× an Station 3. Aufbau vor 16:45, Abbau nach 18:00.</p>
