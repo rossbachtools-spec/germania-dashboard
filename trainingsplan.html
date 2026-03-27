@@ -42,7 +42,7 @@ body{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;background:#F5F7FA;
 
 /* TEAM BOXES */
 .team-grid{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px}
-.team-box{flex:1 1 140px;min-width:140px;border-radius:12px;overflow:hidden;background:var(--white);box-shadow:0 1px 4px rgba(0,0,0,0.08)}
+.team-box{flex:1 1 140px;min-width:140px;max-width:200px;border-radius:12px;overflow:hidden;background:var(--white);box-shadow:0 1px 4px rgba(0,0,0,0.08)}
 .team-box .tb-hdr{padding:8px 12px;color:var(--white);font-weight:700;font-size:14px;text-align:center}
 .tb-blau{background:#1565C0}.tb-rot{background:#C62828}.tb-orange{background:#FF8F00}.tb-gelb{background:#F9A825}.tb-gruen{background:#2E7D32}
 .team-box .tb-list{padding:8px 12px}
@@ -98,7 +98,7 @@ body{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;background:#F5F7FA;
   .hdr-left img{width:40px;height:40px}
   .hdr-left span{font-size:14px}
   .team-grid{gap:8px}
-  .team-box{flex:1 1 calc(50% - 8px);min-width:calc(50% - 8px)}
+  .team-box{flex:1 1 calc(50% - 8px);min-width:calc(50% - 8px);max-width:none}
   .team-box .tb-hdr{font-size:13px;padding:6px 10px}
   .team-box .tb-player{font-size:11.5px}
   .rot-tbl{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
@@ -159,31 +159,31 @@ body{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;background:#F5F7FA;
 
   <div class="stitle">Teamaufstellung</div>
   <div class="team-grid">
-    <div class="team-box"><div class="tb-hdr tb-blau">Blau</div><div class="tb-list">
+    <div class="team-box"><div class="tb-hdr tb-blau">Team Blau</div><div class="tb-list">
       <div class="tb-player"><span class="dot dot-b"></span>Azariah Liel Moses</div>
       <div class="tb-player"><span class="dot dot-b"></span>Rafael Schmitz</div>
       <div class="tb-player"><span class="dot dot-b"></span>Emil Roßbach</div>
       <div class="tb-player"><span class="dot dot-b"></span>Luca Scherz</div>
     </div></div>
-    <div class="team-box"><div class="tb-hdr tb-rot">Rot</div><div class="tb-list">
+    <div class="team-box"><div class="tb-hdr tb-rot">Team Rot</div><div class="tb-list">
       <div class="tb-player"><span class="dot dot-b"></span>Taio Fees</div>
       <div class="tb-player"><span class="dot dot-b"></span>Damiano Rughöft</div>
       <div class="tb-player"><span class="dot dot-b"></span>Linus Würth</div>
       <div class="tb-player"><span class="dot dot-y"></span>Ejdin Beganovic</div>
     </div></div>
-    <div class="team-box"><div class="tb-hdr tb-orange">Orange</div><div class="tb-list">
+    <div class="team-box"><div class="tb-hdr tb-orange">Team Orange</div><div class="tb-list">
       <div class="tb-player"><span class="dot dot-b"></span>Lorik Pllana</div>
       <div class="tb-player"><span class="dot dot-y"></span>Carlos Baitinger</div>
       <div class="tb-player"><span class="dot dot-y"></span>Mattheo Lowasser</div>
       <div class="tb-player"><span class="dot dot-y"></span>Unik Demiri</div>
     </div></div>
-    <div class="team-box"><div class="tb-hdr tb-gelb">Gelb</div><div class="tb-list">
+    <div class="team-box"><div class="tb-hdr tb-gelb">Team Gelb</div><div class="tb-list">
       <div class="tb-player"><span class="dot dot-y"></span>Emil Wachtler</div>
       <div class="tb-player"><span class="dot dot-y"></span>Mats Wilsser</div>
       <div class="tb-player"><span class="dot dot-g"></span>Harshiv Rajesh Kumar</div>
       <div class="tb-player"><span class="dot dot-y"></span>Dejvi Paja</div>
     </div></div>
-    <div class="team-box"><div class="tb-hdr tb-gruen">Grün</div><div class="tb-list">
+    <div class="team-box"><div class="tb-hdr tb-gruen">Team Grün</div><div class="tb-list">
       <div class="tb-player"><span class="dot dot-g"></span>Ioannis Papanikolaou</div>
       <div class="tb-player"><span class="dot dot-y"></span>Jesaja Cello</div>
       <div class="tb-player"><span class="dot dot-y"></span>Yusa Ergen</div>
