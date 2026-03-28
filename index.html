@@ -249,7 +249,7 @@ tbody tr{border-bottom:1px solid #ECEFF1} tbody tr:nth-child(even){background:#F
 <script>
 // ── DATA ────────────────────────────────────────────────────────────────
 const trainings=[
-{id:1,name:"Training #1 – Erstes 5-Gruppen Training",datum:"27.03.2026",anwesendeKinder:20,abwesend:["Noah Florea","Samuel Salvatore Da Silva"],trainer:["Andi","Marc","Njazi","Toni","Mike"],kategorien:["Spielformen","Positionsspiel","Flügelspiel","Dribbling","Koordination","Ballkontrolle"],coaching:"Erstes Training im neuen 5-Gruppen-System mit 4 Kindern pro Team. 4vs4 auf 2 Spielfeldern + 1 Parcours-Station. Fokus: Breite machen, Anti-Bienenschwarm, maximale Ballkontakte.",uebungen:["4vs4 Standard","4vs4 auf 4 Minitore","Parcours groß mit Ball"],besonderheiten:"Erstes Training im neuen 5-Gruppen-System (5 Teams à 4). Round-Robin-Rotation, 5×13 Min + 2 Min Trinkpause = 75 Min."}
+{id:1,name:"Training #1 – Erstes 5-Gruppen Training",datum:"27.03.2026",anwesendeKinder:17,abwesend:{rechtzeitig:["Noah Florea","Samuel Salvatore Da Silva"],kurzfristig:["Mats Wilsser"],unentschuldigt:["Carlos Baitinger","Samuel Adam"]},trainer:["Andi","Marc","Njazi","Toni","Mike"],kategorien:["Spielformen","Positionsspiel","Flügelspiel","Dribbling","Koordination","Ballkontrolle"],coaching:"Erstes Training im neuen 5-Gruppen-System mit 4 Kindern pro Team. 4vs4 auf 2 Spielfeldern + 1 Parcours-Station. Fokus: Breite machen, Anti-Bienenschwarm, maximale Ballkontakte.",uebungen:["4vs4 Standard","4vs4 auf 4 Minitore","Parcours groß mit Ball"],besonderheiten:"Erstes Training im neuen 5-Gruppen-System (5 Teams à 4). Round-Robin-Rotation, 5×13 Min + 2 Min Trinkpause = 75 Min."}
 ];
 const kader=[
   {n:"Azariah Liel Moses",r:"🔵"},
@@ -330,6 +330,53 @@ const cb=(c,cl)=>bg(c,CC[c]||'#1565C0',cl);
 const bc=b=>b==='Top'?'#2E7D32':b==='Gut'?'#1565C0':b==='OK'?'#78909C':'#B0BEC5';
 const bbg=b=>b==='Top'?'rgba(46,125,50,0.1)':b==='Gut'?'rgba(21,101,192,0.1)':b==='OK'?'rgba(120,144,156,0.1)':'rgba(176,190,197,0.1)';
 const rl=r=>{const m={'🔵':{c:'var(--blue)',l:'Stark'},'🟡':{c:'var(--accent)',l:'Mittel'},'🟢':{c:'var(--green)',l:'Beginner'}};const x=m[r]||{c:'var(--gray)',l:'?'};return `<span style="display:inline-flex;align-items:center;gap:4px;font-size:11px;color:${x.c};font-weight:600"><span style="width:8px;height:8px;border-radius:50%;background:${x.c};display:inline-block"></span>${x.l}</span>`;};
+const abwAll=a=>typeof a==='object'&&!Array.isArray(a)?[...(a.rechtzeitig||[]),...(a.kurzfristig||[]),...(a.unentschuldigt||[])]:a||[];
+const abwCount=a=>abwAll(a).length;
+function abwBlock(a){
+  if(!a)return '';
+  if(Array.isArray(a))return a.length?`<div style="margin-top:12px"><div style="font-size:12px;font-weight:600;color:var(--red);margin-bottom:6px;text-transform:uppercase">Abwesend (${a.length})</div>${a.map(x=>bg(x,'#C62828')).join('')}</div>`:'';
+  let h='';const tot=(a.rechtzeitig||[]).length+(a.kurzfristig||[]).length+(a.unentschuldigt||[]).length;
+  if(!tot)return '';
+  h+='<div style="margin-top:12px">';
+  if((a.unentschuldigt||[]).length)h+=`<div style="margin-bottom:8px"><div style="font-size:11px;font-weight:700;color:#C62828;margin-bottom:4px;text-transform:uppercase">🚫 Unentschuldigt (${a.unentschuldigt.length})</div>${a.unentschuldigt.map(x=>bg(x,'#C62828')).join('')}</div>`;
+  if((a.kurzfristig||[]).length)h+=`<div style="margin-bottom:8px"><div style="font-size:11px;font-weight:700;color:#FF8F00;margin-bottom:4px;text-transform:uppercase">⚠️ Kurzfristig (${a.kurzfristig.length})</div>${a.kurzfristig.map(x=>bg(x,'#FF8F00')).join('')}</div>`;
+  if((a.rechtzeitig||[]).length)h+=`<div style="margin-bottom:4px"><div style="font-size:11px;font-weight:700;color:#78909C;margin-bottom:4px;text-transform:uppercase">✓ Rechtzeitig abgesagt (${a.rechtzeitig.length})</div>${a.rechtzeitig.map(x=>bg(x,'#78909C')).join('')}</div>`;
+  h+='</div>';return h;
+}
+
+// ── KIND-DETAIL ─────────────────────────────────────────────────────────
+function showKid(name){
+  var k=kader.find(x=>x.n===name);if(!k)return;
+  var hist=trainings.map(t=>{
+    var allAb=abwAll(t.abwesend);
+    var status='✅ Anwesend',sColor='var(--green)';
+    if(!Array.isArray(t.abwesend)){
+      if((t.abwesend.unentschuldigt||[]).includes(name)){status='🚫 Unentschuldigt';sColor='var(--red)';}
+      else if((t.abwesend.kurzfristig||[]).includes(name)){status='⚠️ Kurzfristig';sColor='var(--accent)';}
+      else if((t.abwesend.rechtzeitig||[]).includes(name)){status='✓ Abgemeldet';sColor='var(--gray)';}
+    }else if(t.abwesend.includes(name)){status='✓ Abgemeldet';sColor='var(--gray)';}
+    var da=!allAb.includes(name);
+    return{datum:t.datum,status:status,sColor:sColor,da:da,uebungen:da?t.uebungen:[]};
+  });
+  var exDone=[...new Set(hist.flatMap(h=>h.uebungen))];
+  var modal=document.createElement('div');
+  modal.style.cssText='position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px';
+  modal.onclick=e=>{if(e.target===modal)modal.remove();};
+  modal.innerHTML=`<div style="background:white;border-radius:16px;max-width:500px;width:100%;max-height:85vh;overflow-y:auto;padding:28px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <div><div style="font-size:20px;font-weight:700;color:var(--navy)">${name}</div><div style="margin-top:4px">${rl(k.r)}</div></div>
+      <button onclick="this.closest('div[style*=fixed]').remove()" style="border:none;background:var(--light);width:32px;height:32px;border-radius:50%;font-size:16px;cursor:pointer;color:var(--navy)">✕</button>
+    </div>
+    <div style="font-size:13px;font-weight:700;color:var(--blue);margin-bottom:8px;text-transform:uppercase">Trainings-Historie</div>
+    ${hist.map(h=>`<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #F0F0F0;font-size:13px">
+      <span style="font-weight:600">${h.datum}</span>
+      <span style="color:${h.sColor};font-weight:600">${h.status}</span>
+    </div>`).join('')}
+    <div style="font-size:13px;font-weight:700;color:var(--blue);margin:16px 0 8px;text-transform:uppercase">Übungen gemacht (${exDone.length})</div>
+    <div>${exDone.length?exDone.map(u=>bg(u,'#0A1F3F')).join(''):'<span style="font-size:13px;color:var(--gray)">Noch keine</span>'}</div>
+  </div>`;
+  document.body.appendChild(modal);
+}
 
 // ── TABS ────────────────────────────────────────────────────────────────
 document.getElementById('tabs').addEventListener('click',e=>{if(!e.target.classList.contains('tab'))return;document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));e.target.classList.add('active');document.getElementById('tab-'+e.target.dataset.tab).classList.add('active');renderCharts(e.target.dataset.tab);});
@@ -381,12 +428,25 @@ function renderOverview(){
       <div class="training-badges">${t0.kategorien.map(k=>cb(k)).join('')}</div>
       <div class="training-badges-sm">${t0.uebungen.map(u=>bg(u,'#0A1F3F',true)).join('')}</div>
       <div class="training-badges-sm">${t0.trainer.map(t=>bg(t,'#2E7D32')).join('')}</div>
-      ${t0.abwesend.length?`<div style="margin-top:8px"><span style="font-size:12px;color:var(--red);font-weight:600">Abwesend: </span>${t0.abwesend.map(a=>bg(a,'#C62828')).join('')}</div>`:''}
+      ${abwBlock(t0.abwesend)}
     </div>`;
 }
 
 function renderKader(){
-  const ab={};kader.forEach(k=>ab[k.n]=0);trainings.forEach(t=>t.abwesend.forEach(a=>ab[a]=(ab[a]||0)+1));const tot=trainings.length;
+  // Abwesenheits-Statistik pro Kind: {rechtzeitig, kurzfristig, unentschuldigt, total}
+  const abStat={};kader.forEach(k=>abStat[k.n]={r:0,k:0,u:0,t:0});
+  trainings.forEach(t=>{
+    var ab=t.abwesend;
+    if(Array.isArray(ab)){ab.forEach(a=>{if(abStat[a]){abStat[a].r++;abStat[a].t++;}});}
+    else{(ab.rechtzeitig||[]).forEach(a=>{if(abStat[a]){abStat[a].r++;abStat[a].t++;}});(ab.kurzfristig||[]).forEach(a=>{if(abStat[a]){abStat[a].k++;abStat[a].t++;}});(ab.unentschuldigt||[]).forEach(a=>{if(abStat[a]){abStat[a].u++;abStat[a].t++;}});}
+  });
+  const tot=trainings.length;
+  // Übungen pro Kind
+  const kidEx={};kader.forEach(k=>kidEx[k.n]=[]);
+  trainings.forEach(t=>{
+    var allAbw=abwAll(t.abwesend);
+    kader.forEach(k=>{if(!allAbw.includes(k.n)){t.uebungen.forEach(u=>{if(!kidEx[k.n].includes(u))kidEx[k.n].push(u);});}});
+  });
   document.getElementById('tab-kader').innerHTML=`
     <div class="cards">
       <div class="stat-card"><div class="label">KADER</div><div class="value" style="color:var(--blue)">${kader.length}</div><div class="sub">Spieler</div></div>
@@ -396,8 +456,8 @@ function renderKader(){
     </div>
     <h2 class="sh">Kader-Übersicht</h2>
     <div class="table-wrap" style="background:var(--white);border-radius:16px;overflow:hidden">
-      <table><thead><tr><th>#</th><th>Name</th><th>Stärke</th><th style="text-align:center">Da</th><th style="text-align:center">Fehlt</th><th style="text-align:center">Quote</th></tr></thead>
-      <tbody>${kader.map((k,i)=>{const gf=ab[k.n]||0,an=tot-gf,q=tot>0?Math.round(an/tot*100):0;const qC=q===100?'var(--green)':q>=75?'var(--accent)':'var(--red)';const qB=q===100?'rgba(46,125,50,0.1)':q>=75?'rgba(255,143,0,0.1)':'rgba(198,40,40,0.1)';return`<tr><td style="color:var(--gray)">${i+1}</td><td style="font-weight:600">${k.n}</td><td>${rl(k.r)}</td><td style="text-align:center;color:var(--green);font-weight:600">${an}</td><td style="text-align:center;color:${gf>0?'var(--red)':'var(--gray)'};font-weight:${gf>0?600:400}">${gf}</td><td style="text-align:center"><span style="display:inline-block;padding:2px 10px;border-radius:12px;font-size:12px;font-weight:600;background:${qB};color:${qC}">${q}%</span></td></tr>`;}).join('')}</tbody></table>
+      <table><thead><tr><th>#</th><th>Name</th><th>Stärke</th><th style="text-align:center">Da</th><th style="text-align:center">✓</th><th style="text-align:center">⚠️</th><th style="text-align:center">🚫</th><th style="text-align:center">Quote</th></tr></thead>
+      <tbody>${kader.map((k,i)=>{const s=abStat[k.n],an=tot-s.t,q=tot>0?Math.round(an/tot*100):0;const qC=q===100?'var(--green)':q>=75?'var(--accent)':'var(--red)';const qB=q===100?'rgba(46,125,50,0.1)':q>=75?'rgba(255,143,0,0.1)':'rgba(198,40,40,0.1)';return`<tr style="cursor:pointer" onclick="showKid('${k.n.replace(/'/g,"\\'")}')"><td style="color:var(--gray)">${i+1}</td><td style="font-weight:600">${k.n}</td><td>${rl(k.r)}</td><td style="text-align:center;color:var(--green);font-weight:600">${an}</td><td style="text-align:center;color:var(--gray)">${s.r||'–'}</td><td style="text-align:center;color:${s.k?'var(--accent)':'var(--gray)'}">${s.k||'–'}</td><td style="text-align:center;color:${s.u?'var(--red)':'var(--gray)'};font-weight:${s.u?700:400}">${s.u||'–'}</td><td style="text-align:center"><span style="display:inline-block;padding:2px 10px;border-radius:12px;font-size:12px;font-weight:600;background:${qB};color:${qC}">${q}%</span></td></tr>`;}).join('')}</tbody></table>
     </div>
     <h2 class="sh">Trainer-Anwesenheit</h2>
     <div class="table-wrap" style="background:var(--white);border-radius:16px;overflow:hidden">
@@ -445,7 +505,7 @@ function renderTrainings(){
         <div class="tags-group"><div class="lbl">Übungen</div>${t.uebungen.map(u=>bg(u,'#0A1F3F',true)).join('')}</div>
         <div class="tags-group"><div class="lbl">Trainer</div>${t.trainer.map(tr=>bg(tr,'#2E7D32')).join('')}</div>
       </div>
-      ${t.abwesend.length?`<div style="margin-top:12px"><div style="font-size:12px;font-weight:600;color:var(--red);margin-bottom:6px;text-transform:uppercase">Abwesend (${t.abwesend.length})</div>${t.abwesend.map(a=>bg(a,'#C62828')).join('')}</div>`:''}
+      ${abwBlock(t.abwesend)}
     </div>`;}).join('');
 }
 
@@ -462,7 +522,10 @@ function renderOC(){
   dc('tr');const tc=document.getElementById('ch-tr');
   if(tc){const d={};trainerTeam.forEach(t=>d[t]=0);trainings.forEach(t=>t.trainer.forEach(tr=>d[tr]=(d[tr]||0)+1));CI.tr=new Chart(tc,{type:'bar',data:{labels:trainerTeam,datasets:[{label:'Einsätze',data:trainerTeam.map(t=>d[t]||0),backgroundColor:'#1565C0',borderRadius:8,barThickness:22}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,scales:{x:{ticks:{stepSize:1},grid:{display:false}},y:{grid:{display:false}}},plugins:{legend:{display:false}}}});}
   dc('att');const a=document.getElementById('ch-att');
-  if(a)CI.att=new Chart(a,{type:'bar',data:{labels:trainings.map(t=>t.datum),datasets:[{label:'Anwesend',data:trainings.map(t=>t.anwesendeKinder),backgroundColor:'#2E7D32',borderRadius:4},{label:'Abwesend',data:trainings.map(t=>kader.length-t.anwesendeKinder),backgroundColor:'rgba(198,40,40,0.25)',borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,scales:{x:{stacked:true,grid:{display:false}},y:{stacked:true,ticks:{stepSize:5}}},plugins:{legend:{position:'bottom',labels:{font:{size:12}}}}}});
+  if(a){
+    var uData=trainings.map(t=>{var ab=t.abwesend;if(Array.isArray(ab))return{r:ab.length,k:0,u:0};return{r:(ab.rechtzeitig||[]).length,k:(ab.kurzfristig||[]).length,u:(ab.unentschuldigt||[]).length};});
+    CI.att=new Chart(a,{type:'bar',data:{labels:trainings.map(t=>t.datum),datasets:[{label:'Anwesend',data:trainings.map(t=>t.anwesendeKinder),backgroundColor:'#2E7D32',borderRadius:4},{label:'Entschuldigt',data:uData.map(d=>d.r+d.k),backgroundColor:'rgba(120,144,156,0.4)',borderRadius:4},{label:'Unentschuldigt',data:uData.map(d=>d.u),backgroundColor:'rgba(198,40,40,0.6)',borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,scales:{x:{stacked:true,grid:{display:false}},y:{stacked:true,ticks:{stepSize:5}}},plugins:{legend:{position:'bottom',labels:{font:{size:12}}}}}});
+  }
 }
 function renderKC(){dc('kd');const c=document.getElementById('ch-kd');if(c)CI.kd=new Chart(c,{type:'doughnut',data:{labels:['Stark (🔵)','Mittel (🟡)','Beginner (🟢)'],datasets:[{data:[9,9,4],backgroundColor:['#1565C0','#FF8F00','#2E7D32'],borderWidth:2,borderColor:'#fff'}]},options:{responsive:true,maintainAspectRatio:false,cutout:'50%',plugins:{legend:{position:'bottom',labels:{font:{size:13}}}}}});}
 function renderUC(){dc('cats');const c=document.getElementById('ch-cats');if(c){const s=AC.map(c=>({n:c,v:UB.filter(u=>u.kat.includes(c)).length})).sort((a,b)=>b.v-a.v);CI.cats=new Chart(c,{type:'bar',data:{labels:s.map(x=>x.n),datasets:[{label:'Übungen',data:s.map(x=>x.v),backgroundColor:s.map(x=>CC[x.n]),borderRadius:6,barThickness:36}]},options:{responsive:true,maintainAspectRatio:false,scales:{x:{ticks:{font:{size:11}},grid:{display:false}},y:{ticks:{stepSize:1}}},plugins:{legend:{display:false}}}});}}
