@@ -113,12 +113,45 @@ body{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;background:#F5F7FA;
   .meta b{width:80px}
 }
 
+/* EDIT MODE */
+body.edit-mode .tb-player{cursor:grab;background:rgba(21, 101, 192, 0.06);transition:background 0.15s;touch-action:none}
+body.edit-mode .tb-player:active{cursor:grabbing}
+.sortable-ghost{opacity:0.5;border:2px solid var(--blue)}
+#edit-fab{position:fixed;bottom:20px;right:20px;z-index:9999;background:var(--navy);color:var(--white);border:none;border-radius:50%;width:56px;height:56px;font-size:24px;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.2);display:flex;align-items:center;justify-content:center;transition:all 0.3s;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif}
+#edit-fab:active{transform:scale(0.95)}
+#edit-fab-label{display:block;font-size:10px;margin-top:2px;text-align:center;width:100%;position:absolute;bottom:-18px;left:0}
+.fab-wrapper{position:relative}
+#absence-zone{display:none;margin:20px 0;padding:16px;background:#F5F7FA;border-radius:8px;gap:12px}
+body.edit-mode #absence-zone{display:grid;grid-template-columns:repeat(3,1fr)}
+#absence-zone .absence-box{padding:12px;border-radius:6px;min-height:80px;border:2px dashed rgba(0,0,0,0.2);font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;text-align:center;color:white}
+.absence-reported{background:#78909C;color:white}
+.absence-shortterm{background:#FF8F00;color:white}
+.absence-unexcused{background:#C62828;color:white}
+.absence-drop{min-height:120px}
+@media(max-width:600px){
+  #absence-zone{grid-template-columns:1fr}
+  #edit-fab{width:48px;height:48px;font-size:20px;bottom:16px;right:16px}
+}
+
+/* NOTION SYNC BTN */
+#notion-sync-btn{background:#DCDCDC;color:#666;border:none;padding:10px 16px;border-radius:6px;font-size:13px;cursor:not-allowed;opacity:0.6;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;margin-top:16px}
+#notion-sync-btn:hover{background:#DCDCDC}
+
+/* SUMMARY SECTION */
+#summary-section{display:none;margin-top:20px;padding:16px;background:#F5F7FA;border-radius:8px;border-left:4px solid var(--blue)}
+body.edit-mode #summary-section{display:block}
+#copy-summary-btn{background:var(--blue);color:white;border:none;padding:12px 20px;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;margin-top:12px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif}
+#copy-summary-btn:active{opacity:0.9}
+
 /* PRINT */
 @media print{
   body{background:white}
   .page{box-shadow:none;margin:0;padding:30px 40px}
   #login-screen{display:none!important}
   #app-content{display:block!important}
+  #edit-fab{display:none!important}
+  #absence-zone{display:none!important}
+  #summary-section{display:none!important}
 }
 </style>
 </head>
@@ -164,36 +197,51 @@ body{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;background:#F5F7FA;
 
   <div class="stitle">Teamaufstellung</div>
   <div class="team-grid">
-    <div class="team-box"><div class="tb-hdr tb-blau">Team Blau</div><div class="tb-list">
-      <div class="tb-player"><span class="dot dot-b"></span>Azariah Liel Moses</div>
-      <div class="tb-player"><span class="dot dot-b"></span>Rafael Schmitz</div>
-      <div class="tb-player"><span class="dot dot-b"></span>Emil Roßbach</div>
-      <div class="tb-player"><span class="dot dot-b"></span>Luca Scherz</div>
+    <div class="team-box"><div class="tb-hdr tb-blau">Team Blau</div><div class="tb-list" data-team="blau">
+      <div class="tb-player" data-name="Azariah Liel Moses" data-rating="b"><span class="dot dot-b"></span>Azariah Liel Moses</div>
+      <div class="tb-player" data-name="Rafael Schmitz" data-rating="b"><span class="dot dot-b"></span>Rafael Schmitz</div>
+      <div class="tb-player" data-name="Emil Roßbach" data-rating="b"><span class="dot dot-b"></span>Emil Roßbach</div>
+      <div class="tb-player" data-name="Luca Scherz" data-rating="b"><span class="dot dot-b"></span>Luca Scherz</div>
     </div></div>
-    <div class="team-box"><div class="tb-hdr tb-rot">Team Rot</div><div class="tb-list">
-      <div class="tb-player"><span class="dot dot-b"></span>Taio Fees</div>
-      <div class="tb-player"><span class="dot dot-b"></span>Damiano Rughöft</div>
-      <div class="tb-player"><span class="dot dot-b"></span>Linus Würth</div>
-      <div class="tb-player"><span class="dot dot-y"></span>Ejdin Beganovic</div>
+    <div class="team-box"><div class="tb-hdr tb-rot">Team Rot</div><div class="tb-list" data-team="rot">
+      <div class="tb-player" data-name="Taio Fees" data-rating="b"><span class="dot dot-b"></span>Taio Fees</div>
+      <div class="tb-player" data-name="Damiano Rughöft" data-rating="b"><span class="dot dot-b"></span>Damiano Rughöft</div>
+      <div class="tb-player" data-name="Linus Würth" data-rating="b"><span class="dot dot-b"></span>Linus Würth</div>
+      <div class="tb-player" data-name="Ejdin Beganovic" data-rating="y"><span class="dot dot-y"></span>Ejdin Beganovic</div>
     </div></div>
-    <div class="team-box"><div class="tb-hdr tb-orange">Team Orange</div><div class="tb-list">
-      <div class="tb-player"><span class="dot dot-b"></span>Lorik Pllana</div>
-      <div class="tb-player"><span class="dot dot-y"></span>Carlos Baitinger</div>
-      <div class="tb-player"><span class="dot dot-y"></span>Mattheo Lowasser</div>
-      <div class="tb-player"><span class="dot dot-y"></span>Unik Demiri</div>
+    <div class="team-box"><div class="tb-hdr tb-orange">Team Orange</div><div class="tb-list" data-team="orange">
+      <div class="tb-player" data-name="Lorik Pllana" data-rating="b"><span class="dot dot-b"></span>Lorik Pllana</div>
+      <div class="tb-player" data-name="Carlos Baitinger" data-rating="y"><span class="dot dot-y"></span>Carlos Baitinger</div>
+      <div class="tb-player" data-name="Mattheo Lowasser" data-rating="y"><span class="dot dot-y"></span>Mattheo Lowasser</div>
+      <div class="tb-player" data-name="Unik Demiri" data-rating="y"><span class="dot dot-y"></span>Unik Demiri</div>
     </div></div>
-    <div class="team-box"><div class="tb-hdr tb-gelb">Team Gelb</div><div class="tb-list">
-      <div class="tb-player"><span class="dot dot-y"></span>Emil Wachtler</div>
-      <div class="tb-player"><span class="dot dot-y"></span>Mats Wilsser</div>
-      <div class="tb-player"><span class="dot dot-g"></span>Harshiv Rajesh Kumar</div>
-      <div class="tb-player"><span class="dot dot-y"></span>Dejvi Paja</div>
+    <div class="team-box"><div class="tb-hdr tb-gelb">Team Gelb</div><div class="tb-list" data-team="gelb">
+      <div class="tb-player" data-name="Emil Wachtler" data-rating="y"><span class="dot dot-y"></span>Emil Wachtler</div>
+      <div class="tb-player" data-name="Mats Wilsser" data-rating="y"><span class="dot dot-y"></span>Mats Wilsser</div>
+      <div class="tb-player" data-name="Harshiv Rajesh Kumar" data-rating="g"><span class="dot dot-g"></span>Harshiv Rajesh Kumar</div>
+      <div class="tb-player" data-name="Dejvi Paja" data-rating="y"><span class="dot dot-y"></span>Dejvi Paja</div>
     </div></div>
-    <div class="team-box"><div class="tb-hdr tb-gruen">Team Grün</div><div class="tb-list">
-      <div class="tb-player"><span class="dot dot-g"></span>Ioannis Papanikolaou</div>
-      <div class="tb-player"><span class="dot dot-y"></span>Jesaja Cello</div>
-      <div class="tb-player"><span class="dot dot-y"></span>Yusa Ergen</div>
-      <div class="tb-player"><span class="dot dot-y"></span>Samuel Adam</div>
+    <div class="team-box"><div class="tb-hdr tb-gruen">Team Grün</div><div class="tb-list" data-team="gruen">
+      <div class="tb-player" data-name="Ioannis Papanikolaou" data-rating="g"><span class="dot dot-g"></span>Ioannis Papanikolaou</div>
+      <div class="tb-player" data-name="Jesaja Cello" data-rating="y"><span class="dot dot-y"></span>Jesaja Cello</div>
+      <div class="tb-player" data-name="Yusa Ergen" data-rating="y"><span class="dot dot-y"></span>Yusa Ergen</div>
+      <div class="tb-player" data-name="Samuel Adam" data-rating="y"><span class="dot dot-y"></span>Samuel Adam</div>
     </div></div>
+  </div>
+
+  <!-- Absence Drop Zone -->
+  <div id="absence-zone">
+    <div class="absence-box absence-reported absence-drop" data-absence="reported">✓ Abgemeldet</div>
+    <div class="absence-box absence-shortterm absence-drop" data-absence="shortterm">⚠️ Kurzfristig</div>
+    <div class="absence-box absence-unexcused absence-drop" data-absence="unexcused">🚫 Unentschuldigt</div>
+  </div>
+
+  <!-- Summary Section -->
+  <div id="summary-section">
+    <h3 style="font-size:16px;margin-bottom:12px">📋 Zusammenfassung</h3>
+    <p id="summary-text" style="font-size:13px;line-height:1.6;white-space:pre-wrap;background:white;padding:12px;border-radius:6px;font-family:monospace"></p>
+    <button id="copy-summary-btn">📋 Zusammenfassung kopieren</button>
+    <button id="notion-sync-btn" title="Kommt bald">📤 Nach Notion speichern</button>
   </div>
 
   <div class="stitle">Rotationsplan · 5 × 13 Min · 2 Min Trinkpause</div>
@@ -371,5 +419,146 @@ function checkPw(){
 }
 document.getElementById('pw-input').addEventListener('keydown',function(e){if(e.key==='Enter')checkPw()});
 </script>
+
+<!-- FAB Button -->
+<div style="position:fixed;bottom:20px;right:20px;z-index:9999">
+  <button id="edit-fab" title="Bearbeiten">✏️</button>
+</div>
+
+<!-- SortableJS -->
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.7/Sortable.min.js"></script>
+
+<script>
+let editMode = false;
+let sortables = [];
+
+function initSortables() {
+  // Remove existing sortables
+  sortables.forEach(s => s.destroy());
+  sortables = [];
+
+  // Initialize team lists
+  document.querySelectorAll('.tb-list').forEach(list => {
+    const sortable = Sortable.create(list, {
+      animation: 150,
+      ghostClass: 'sortable-ghost',
+      group: 'teams',
+      delayOnTouchOnly: true,
+      delay: 100,
+      touchStartThreshold: 5,
+      disabled: !editMode,
+      onEnd: updateStats
+    });
+    sortables.push(sortable);
+  });
+
+  // Initialize absence zones
+  document.querySelectorAll('.absence-drop').forEach(box => {
+    const sortable = Sortable.create(box, {
+      animation: 150,
+      ghostClass: 'sortable-ghost',
+      group: 'teams',
+      delayOnTouchOnly: true,
+      delay: 100,
+      touchStartThreshold: 5,
+      disabled: !editMode,
+      onEnd: updateStats
+    });
+    sortables.push(sortable);
+  });
+}
+
+function toggleEditMode() {
+  editMode = !editMode;
+  document.body.classList.toggle('edit-mode');
+  const fab = document.getElementById('edit-fab');
+
+  if (editMode) {
+    fab.textContent = '✅';
+    fab.title = 'Fertig';
+  } else {
+    fab.textContent = '✏️';
+    fab.title = 'Bearbeiten';
+  }
+
+  // Enable/disable sortables
+  sortables.forEach(s => s.option('disabled', !editMode));
+
+  updateStats();
+}
+
+function updateStats() {
+  const teams = {
+    blau: [],
+    rot: [],
+    orange: [],
+    gelb: [],
+    gruen: []
+  };
+  const absences = {
+    reported: [],
+    shortterm: [],
+    unexcused: []
+  };
+
+  // Gather players from teams
+  document.querySelectorAll('.tb-list').forEach(list => {
+    const team = list.getAttribute('data-team');
+    list.querySelectorAll('.tb-player').forEach(player => {
+      const name = player.getAttribute('data-name');
+      if (name) teams[team].push(name);
+    });
+  });
+
+  // Gather players from absence zones
+  document.querySelectorAll('.absence-drop').forEach(box => {
+    const absence = box.getAttribute('data-absence');
+    box.querySelectorAll('.tb-player').forEach(player => {
+      const name = player.getAttribute('data-name');
+      if (name) absences[absence].push(name);
+    });
+  });
+
+  // Update meta section
+  const presentCount = Object.values(teams).reduce((sum, arr) => sum + arr.length, 0);
+  const absentCount = Object.values(absences).reduce((sum, arr) => sum + arr.length, 0);
+
+  // Generate summary
+  const date = new Date().toLocaleDateString('de-DE', { year: 'numeric', month: '2-digit', day: '2-digit' });
+  let summary = 'Training 27.03.2026 – Finale Aufstellung\n';
+  summary += 'Anwesend: ' + presentCount + ' Kinder\n\n';
+
+  const teamNames = {blau: 'Team Blau', rot: 'Team Rot', orange: 'Team Orange', gelb: 'Team Gelb', gruen: 'Team Grün'};
+  Object.entries(teams).forEach(([key, players]) => {
+    if (players.length > 0) {
+      summary += teamNames[key] + ': ' + players.join(', ') + '\n';
+    }
+  });
+
+  summary += '\nAbwesenheiten:\n';
+  if (absences.reported.length > 0) summary += 'Abgemeldet: ' + absences.reported.join(', ') + '\n';
+  if (absences.shortterm.length > 0) summary += 'Kurzfristig: ' + absences.shortterm.join(', ') + '\n';
+  if (absences.unexcused.length > 0) summary += 'Unentschuldigt: ' + absences.unexcused.join(', ') + '\n';
+
+  document.getElementById('summary-text').textContent = summary;
+}
+
+document.getElementById('edit-fab').addEventListener('click', toggleEditMode);
+
+document.getElementById('copy-summary-btn').addEventListener('click', function() {
+  const text = document.getElementById('summary-text').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = this;
+    const originalText = btn.textContent;
+    btn.textContent = '✓ Kopiert!';
+    setTimeout(() => { btn.textContent = originalText; }, 2000);
+  });
+});
+
+// Initialize on load
+initSortables();
+updateStats();
+</script>
+
 </body>
 </html>
