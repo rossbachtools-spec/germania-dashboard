@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Training 31.03.2026</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: Arial, sans-serif; background: #f5f5f5; padding: 20px; color: #222; }
+
+  .header { background: #1a1a2e; color: white; padding: 20px 24px; border-radius: 12px; margin-bottom: 20px; }
+  .header h1 { font-size: 22px; margin-bottom: 4px; }
+  .header .meta { font-size: 14px; opacity: 0.8; }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+
+  .team-card { background: white; border-radius: 10px; padding: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
+  .team-card h3 { font-size: 15px; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 2px solid; }
+  .team-card.t1 h3 { border-color: #e74c3c; color: #e74c3c; }
+  .team-card.t2 h3 { border-color: #3498db; color: #3498db; }
+  .team-card.t3 h3 { border-color: #2ecc71; color: #2ecc71; }
+  .team-card.t4 h3 { border-color: #f39c12; color: #f39c12; }
+  .team-card ul { list-style: none; font-size: 14px; }
+  .team-card li { padding: 3px 0; }
+
+  .stations { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+  .station { background: white; border-radius: 10px; padding: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
+  .station h3 { font-size: 15px; margin-bottom: 4px; }
+  .station .trainer { font-size: 13px; color: #666; margin-bottom: 10px; }
+  .station .desc { font-size: 13px; line-height: 1.5; }
+  .station .desc strong { color: #333; }
+
+  .rotation { background: white; border-radius: 10px; padding: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
+  .rotation h3 { font-size: 15px; margin-bottom: 10px; }
+  .rotation table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .rotation th, .rotation td { padding: 6px 10px; text-align: center; border: 1px solid #ddd; }
+  .rotation th { background: #1a1a2e; color: white; font-weight: 600; }
+  .rotation td { background: #fafafa; }
+
+  .uebung-detail { background: white; border-radius: 10px; padding: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); margin-bottom: 20px; border-left: 4px solid #e67e22; }
+  .uebung-detail.spiel { border-left-color: #e74c3c; }
+  .uebung-detail.spiel h2 { color: #e74c3c; }
+  .uebung-detail h2 { font-size: 18px; margin-bottom: 4px; color: #e67e22; }
+  .uebung-detail .subtitle { font-size: 13px; color: #888; margin-bottom: 14px; }
+  .uebung-detail h4 { font-size: 14px; margin: 12px 0 6px; color: #444; }
+  .uebung-detail p, .uebung-detail li { font-size: 13px; line-height: 1.6; }
+  .uebung-detail ul { margin-left: 18px; }
+  .uebung-detail .aufbau { background: #fff8f0; border-radius: 8px; padding: 12px; margin: 10px 0; }
+
+  @media print {
+    body { padding: 10px; background: white; }
+    .header { break-after: avoid; }
+    .station, .team-card, .uebung-detail, .rotation { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Training DRAUSSEN</h1>
+  <div class="meta">Di. 31. März 2026 | 16:45 – 18:00 | Kunstrasen 1 im Ellental | 17 Spieler</div>
+  <div class="meta" style="margin-top:4px;">Trainer: Andi, Linus, Marc, Marcus, Njazi</div>
+</div>
+
+<div class="grid">
+  <div class="team-card t1">
+    <h3>Team 1 – Rot (4)</h3>
+    <ul><li>Luca Scherz</li><li>Emil Roßbach</li><li>Damiano Rughöft</li><li>Rafael Schmitz</li></ul>
+  </div>
+  <div class="team-card t2">
+    <h3>Team 2 – Blau (4)</h3>
+    <ul><li>Harshiv Rajesh Kumar</li><li>Dejvi Paja</li><li>Lorik Pllana</li><li>Jesaja Cello</li></ul>
+  </div>
+  <div class="team-card t3">
+    <h3>Team 3 – Grün (5)</h3>
+    <ul><li>Noah Florea</li><li>Ejdin Beganovic</li><li>Mattheo Lowaßer</li><li>Carlos Baitinger</li><li>Ioannis Papanikolaou</li></ul>
+  </div>
+  <div class="team-card t4">
+    <h3>Team 4 – Gelb (4)</h3>
+    <ul><li>Emil Wachtler</li><li>Yuşa Ergen</li><li>Linus Würth</li><li>Unik Demiri</li></ul>
+  </div>
+</div>
+
+<div class="stations">
+  <div class="station">
+    <h3>Station 1 – 4vs4 MiniTore</h3>
+    <div class="trainer">Njazi & Marcus</div>
+    <div class="desc">Zwei MiniTore gegenüber. 4 gegen 4 (bzw. 4 vs 5 wenn Team 3 dabei). Freies Spiel, Tore zählen. Regeln siehe Übungskarte "4vs4" unten.</div>
+  </div>
+  <div class="station">
+    <h3>Station 2 – Dribbel-Tor</h3>
+    <div class="trainer">Andi</div>
+    <div class="desc">Dribbling durch Hütchen-Slalom → Torschuss. Details siehe Übungskarte unten.</div>
+  </div>
+  <div class="station">
+    <h3>Station 3 – Parcours</h3>
+    <div class="trainer">Marc & Linus</div>
+    <div class="desc">Koordinations-Parcours mit verschiedenen Elementen.</div>
+  </div>
+</div>
+
+<div class="rotation">
+  <h3>Rotationsplan (~15 Min pro Runde)</h3>
+  <table>
+    <tr><th></th><th>Station 1 – 4vs4</th><th>Station 2 – Dribbel-Tor</th><th>Station 3 – Parcours</th></tr>
+    <tr><td><strong>Runde 1</strong></td><td>Team 1 vs Team 2</td><td>Team 3</td><td>Team 4</td></tr>
+    <tr><td><strong>Runde 2</strong></td><td>Team 3 vs Team 4</td><td>Team 1</td><td>Team 2</td></tr>
+    <tr><td><strong>Runde 3</strong></td><td>Team 1 vs Team 4</td><td>Team 2</td><td>Team 3</td></tr>
+    <tr><td><strong>Runde 4</strong></td><td>Team 2 vs Team 3</td><td>Team 4</td><td>Team 1</td></tr>
+  </table>
+</div>
+
+<div class="uebung-detail spiel">
+  <h2>Übungskarte: 4vs4</h2>
+  <div class="subtitle">2 Trainer | 2 Teams à 4–5 Spieler</div>
+
+  <h4>Variante A: MiniTore</h4>
+  <div class="aufbau">
+    <p>Kleines Feld (ca. 20×15 m), je ein MiniTor an den kurzen Seiten. Keine Torhüter.</p>
+  </div>
+
+  <h4>Variante B: Große Tore</h4>
+  <div class="aufbau">
+    <p>Feld ca. 25×20 m, zwei große Tore. Mit oder ohne Torhüter.</p>
+  </div>
+
+  <h4>Ablauf</h4>
+  <ul>
+    <li>Freies Spiel 4 gegen 4 (bzw. 4 vs 5). Tore zählen.</li>
+    <li>Nach jedem Tor: Anstoß für das Team das kassiert hat.</li>
+  </ul>
+
+  <h4>Fairness-Regeln (Provokationsregeln nach DFB)</h4>
+  <ul>
+    <li><strong>"Alle am Ball"-Regel:</strong> Ein Tor zählt nur, wenn vorher jeder Spieler des angreifenden Teams mindestens einmal den Ball berührt hat.</li>
+    <li><strong>Pflichtpass-Regel:</strong> Tor zählt nur nach mindestens 3 Pässen innerhalb des Teams.</li>
+    <li><strong>Jeder muss treffen:</strong> Erst wenn jeder Spieler im Team ein Tor geschossen hat, wird neu gezählt. Solange einer noch kein Tor hat, muss auf den gespielt werden.</li>
+    <li><strong>Schusszone:</strong> Bei klarem Vorsprung (ab 3:0) → das starke Team darf nur noch aus einer markierten Zone schießen (2 Hütchen als Linie, ca. 5m vor dem Tor).</li>
+  </ul>
+
+  <h4>Coaching-Punkte</h4>
+  <ul>
+    <li>Trainer zählt mit und achtet aktiv auf die Regeln – nicht laufen lassen!</li>
+    <li>Bei Ungleichgewicht sofort Schusszone aktivieren</li>
+    <li>Alle Spieler einbinden, schwächere Kids ansprechen und ermutigen</li>
+  </ul>
+</div>
+
+<div class="uebung-detail">
+  <h2>Übungskarte: Dribbel-Tor</h2>
+  <div class="subtitle">Station 2 | 1 Trainer | 4–5 Spieler | ca. 15 Min pro Durchgang</div>
+
+  <div class="aufbau">
+    <h4>Aufbau</h4>
+    <p>6 Hütchen im Zickzack-Slalom (Abstand ca. 1,5 m) → nach dem letzten Hütchen ca. 3 m freie Schusszone → 1 MiniTor (oder Großtor).</p>
+  </div>
+
+  <h4>Ablauf</h4>
+  <ul>
+    <li>Alle Kids stellen sich mit Ball hinter dem ersten Hütchen an.</li>
+    <li>Auf Kommando dribbelt der Erste durch den Slalom (Ball eng am Fuß, Innenseite/Außenseite abwechselnd).</li>
+    <li>Am Ende: Torschuss mit dem stärkeren Fuß.</li>
+    <li>Ball holen, hinten wieder anstellen → nächster los.</li>
+  </ul>
+
+  <h4>Varianten / Steigerung</h4>
+  <ul>
+    <li><strong>Runde 1:</strong> Langsam durchdribbeln, Technik betonen – „Ball ist dein Freund, immer nah am Fuß!"</li>
+    <li><strong>Runde 2:</strong> Auf Zeit – wer schafft Slalom + Tor am schnellsten?</li>
+    <li><strong>Runde 3:</strong> Nur mit dem schwachen Fuß dribbeln.</li>
+    <li><strong>Wettkampf:</strong> 2er-Teams, wer hat nach 2 Min mehr Tore?</li>
+  </ul>
+
+  <h4>Coaching-Punkte</h4>
+  <ul>
+    <li>Blick hoch, nicht nur auf den Ball schauen</li>
+    <li>Kleine Kontakte, Ball nicht wegschieben</li>
+    <li>Beim Torschuss: Standbein neben den Ball, durchziehen</li>
+    <li>Viel loben, Spaß steht im Vordergrund!</li>
+  </ul>
+</div>
+
+</body>
+</html>
