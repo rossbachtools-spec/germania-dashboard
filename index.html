@@ -414,7 +414,7 @@ document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='
 
 // ── RENDER ──────────────────────────────────────────────────────────────
 function renderOverview(){
-  const t0=trainings[0],used=UB.filter(u=>u.ein>0).length;
+  const t0=trainings[trainings.length-1],used=UB.filter(u=>u.ein>0).length;
   document.getElementById('tab-overview').innerHTML=`
     <div class="cards">
       <div class="stat-card"><div class="label">TRAININGS</div><div class="value" style="color:var(--blue)">${trainings.length}</div><div class="sub">diese Saison</div></div>
