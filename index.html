@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Germania Bambini – Training Dashboard</title>
+<title>Bambini 2019er – Training Dashboard</title>
 
 <style>
 :root { --navy:#0A1F3F; --blue:#1565C0; --light:#E3F2FD; --accent:#FF8F00; --green:#2E7D32; --red:#C62828; --gray:#78909C; --white:#FFFFFF; }
@@ -12,7 +12,8 @@ html{-webkit-text-size-adjust:100%}
 body{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;background:#F5F7FA;color:var(--navy)}
 button{font-family:inherit;cursor:pointer}
 ::-webkit-scrollbar{width:6px} ::-webkit-scrollbar-thumb{background:#B0BEC5;border-radius:3px}
-.header{background:var(--navy);padding:28px 32px 0;padding-top:max(28px,env(safe-area-inset-top));color:var(--white)}
+.header{background:var(--navy);padding:28px 0 0;padding-top:max(28px,env(safe-area-inset-top));color:var(--white)}
+.header-inner{max-width:1200px;margin:0 auto;padding:0 32px}
 .header h1{font-size:24px;font-weight:700}
 .header .sub{font-size:13px;opacity:0.8;margin-top:2px}
 .header-top{display:flex;align-items:center;gap:16px;margin-bottom:16px}
@@ -223,9 +224,10 @@ tbody tr{border-bottom:1px solid #ECEFF1} tbody tr:nth-child(even){background:#F
 
 <div id="app-content" style="display:none">
 <div class="header">
+ <div class="header-inner">
   <div class="header-top">
     <div>
-      <h1>Germania Bambini – Training Dashboard</h1>
+      <h1>Bambini 2019er – Training Dashboard</h1>
       <div class="sub">JG 2019 · Saison 2025/26 · Stand: 27.03.2026</div>
     </div>
   </div>
@@ -235,6 +237,7 @@ tbody tr{border-bottom:1px solid #ECEFF1} tbody tr:nth-child(even){background:#F
     <button class="tab" data-tab="uebungen">Übungsbibliothek</button>
     <button class="tab" data-tab="trainings">Trainings-Log</button>
   </div>
+ </div>
 </div>
 <div class="content">
   <div class="tab-content active" id="tab-overview"></div>
